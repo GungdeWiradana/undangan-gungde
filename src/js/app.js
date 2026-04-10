@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const iconMusic = btnMusic.querySelector("i");
     
     // PENTING: Ganti 'lagu.mp3' dengan nama file lagumu dan pastikan lokasinya benar!
-    const bgMusic = new Audio('./src/assets/music/Ultah.mp3'); 
+    const bgMusic = new Audio('../assets/music/Ultah.mp3'); 
     bgMusic.loop = true; // Lagu akan mengulang terus menerus
     let isPlaying = false;
 
