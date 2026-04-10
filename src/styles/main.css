@@ -1,0 +1,204 @@
+/* Import Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Tema Gelap */
+}
+
+.font-esthetic {
+    font-family: 'Great Vibes', cursive;
+}
+
+/* ================= WELCOME SCREEN ================= */
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #121212;
+    z-index: 9999;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.welcome-img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border: 4px solid #fff;
+}
+
+/* Efek Fade Out via JS */
+.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ================= MAIN WRAPPER ================= */
+#main-wrapper {
+    display: block; /* Kunci 1: Jangan pakai flex agar tidak bentrok */
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ================= DESKTOP VIEW (SPLIT SCREEN) ================= */
+/* Pakai 900px agar aman dari error resolusi laptop Windows */
+@media (min-width: 900px) {
+    
+    /* 1. PANEL KIRI DIKUNCI MATI (FIXED) */
+    #left-panel {
+    display: flex !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.bg-image-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center;
+    z-index: 0;
+}
+
+#left-panel .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gunakan gradient agar bagian bawah agak gelap, bagian atas lebih terang */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+    z-index: 1;
+}
+
+#left-panel .z-1 {
+    position: relative;
+    z-index: 10 !important;
+    color: #ffffff;
+    /* Bayangan teks agar tetap terbaca meski background terang */
+    text-shadow: 2px 4px 15px rgba(0, 0, 0, 0.8);
+} 
+
+    /* 2. PANEL KANAN DIBUAT BISA SCROLL */
+    #right-panel {
+        width: 40%; /* Sisa layar 40% */
+        margin-left: 60%; /* Dorong panel ini ke kanan menjauhi panel kiri */
+        background-color: #1a1a1a;
+        min-height: 100vh;
+        position: relative;
+        z-index: 2; /* Berada di atas panel kiri */
+        box-shadow: -10px 0 20px rgba(0,0,0,0.5); /* Garis batas bayangan elegan */
+    }
+
+    /* 3. MENU BAWAH DILURUSKAN DENGAN KANAN */
+    #bottom-nav {
+        position: fixed;
+        width: 40%;
+        right: 0;
+        left: auto;
+    }
+}
+
+/* ================= MOBILE VIEW (LAYAR HP) ================= */
+@media (max-width: 899px) {
+    #left-panel {
+        display: none !important; /* Sembunyikan kiri sepenuhnya */
+    }
+    #right-panel {
+        width: 100%;
+        margin-left: 0; /* Kembalikan panel kanan ke tengah/full screen */
+    }
+    #bottom-nav {
+        width: 100%;
+    }
+}
+
+/* ================= ANIMASI SCROLL ================= */
+.mouse-icon {
+    width: 24px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    position: relative;
+    margin: 0 auto;
+}
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: #fff;
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll 1.5s infinite;
+}
+@keyframes scroll {
+    0% { top: 8px; opacity: 1; }
+    100% { top: 20px; opacity: 0; }
+}
+
+/* Utility */
+.text-warning {
+    color: #bfa75d !important; /* Warna emas custom */
+}
+.bg-dark {
+    background-color: #1a1a1a !important;
+}
+
+/* ================= ANIMASI TOMBOL MUSIK ================= */
+.spin-icon {
+    animation: spin-music 3s linear infinite;
+}
+
+/* Class ini akan ditambahkan via JS kalau lagu di-pause */
+.spin-icon.paused {
+    animation-play-state: paused;
+}
+
+@keyframes spin-music {
+    100% { transform: rotate(360deg); }
+}
+
+.welcome-img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    
+    /* Trik agar pixel terlihat lebih rapat */
+    image-rendering: -webkit-optimize-contrast; 
+    
+    /* Memberi border emas yang sedikit bersinar (glow) */
+    /* Ini menutupi pinggiran foto yang mungkin pecah saat di-zoom */
+    border: 3px solid #bfa75d;
+    box-shadow: 0 0 15px rgba(191, 167, 93, 0.5);
+    
+    /* Mempertajam warna otomatis */
+    filter: contrast(1.1) brightness(1.02);
+}
+
+/* ================= GALERI CAROUSEL ================= */
+#carouselGallery .carousel-item img {
+    width: 100%;
+    
+    /* 1. HAPUS height: 350px; dan ganti menjadi auto */
+    height: auto; 
+    
+    /* 2. Kunci rasionya ke 4:3 agar tidak lompat-lompat */
+    aspect-ratio: 4 / 3; 
+    
+    /* 3. object-fit tetap cover untuk jaga-jaga kalau potongannya meleset sedikit */
+    object-fit: cover;
+    object-position: center; 
+}
+
